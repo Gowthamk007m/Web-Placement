@@ -12,10 +12,9 @@ def main_page(request):
     return render(request, 'home/index2.html')
 
 
+def user_home(request):
+    return render(request, 'user/userhome.html')
 
-
-def main_page2(request):
-    return HttpResponse("User")
 
 def register(request):
     if request.method == 'POST':

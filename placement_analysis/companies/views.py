@@ -7,4 +7,7 @@ from django.http import HttpResponse
 
 
 def main_page(request):
-    return HttpResponse("Companies")
+    return render(request, 'companies/companyhome.html')
+
+
+

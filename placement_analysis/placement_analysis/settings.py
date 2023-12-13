@@ -28,7 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+LOGOUT_REDIRECT_URL = '/'
+# LOGIN_REDIRECT_URL = "/rooms/"
+# LOGIN_URL = '/login/'
 # Application definition
 
 INSTALLED_APPS = [
@@ -115,6 +117,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
 
 
 # Static files (CSS, JavaScript, Images)
