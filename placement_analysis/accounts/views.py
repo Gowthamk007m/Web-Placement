@@ -12,6 +12,11 @@ def main_page(request):
     return render(request, 'home/index2.html')
 
 
+
+
+def main_page2(request):
+    return HttpResponse("User")
+
 def register(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -66,13 +71,13 @@ def login_view(request):
             if user.groups.filter(name='user').exists():
                 return redirect('user_home')
 
-            elif user.groups.filter(name='colleges').exists():
+            elif user.groups.filter(name='college').exists():
                 return redirect('colleges_home')
 
-            elif user.groups.filter(name='admin_main').exists():
+            elif user.groups.filter(name='admin').exists():
                 return redirect('admin_home')
 
-            elif user.groups.filter(name='companies').exists():
+            elif user.groups.filter(name='company').exists():
                 return redirect('companies_home')
         else:
             error_message = 'Invalid ID or password'
