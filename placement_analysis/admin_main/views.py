@@ -7,4 +7,4 @@ from django.http import HttpResponse
 
 
 def main_page(request):
-    return HttpResponse("Admin")
+    return render(request, 'admin_main/adminhome.html')

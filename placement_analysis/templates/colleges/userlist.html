@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mentor</title>
+  </head>
+<style>
+    *,
+*::after,
+*::before {
+  box-sizing: border-box;
+  padding: 0;}
+    h1 {
+      font-size: 30px;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 300;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    table {
+      width: 100%;
+      table-layout: fixed;  
+    }
+    .tbl-header {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+    .tbl-content {
+      height: 470px;
+      overflow-x: auto;
+      margin-top: 0px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    th {
+      padding: 20px 15px;
+      text-align: left;
+      font-weight: 500;
+      font-size: 15px;
+      color: #fff;
+      text-transform: uppercase;
+    }
+    td {
+      padding: 20px 15px 20px 15px;
+      text-align: left;
+      vertical-align: middle;
+      font-weight: 300;
+      font-size: 15px;
+      color: #fff;
+      border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+    }
+
+    /* demo styles */
+
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+    body {
+      background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+      background: linear-gradient(to right, #25c481, #25b7c4);
+      font-family: "Roboto", sans-serif;
+      margin-top: 30px;
+    }
+    section {
+      margin: 50px;
+    }
+
+    /* follow me template */
+    .made-with-love {
+      margin-top: 40px;
+      padding: 10px;
+      clear: left;
+      text-align: center;
+      font-size: 10px;
+      font-family: arial;
+      color: #fff;
+    }
+    .made-with-love i {
+      font-style: normal;
+      color: #f50057;
+      font-size: 14px;
+      position: relative;
+      top: 2px;
+    }
+    .made-with-love a {
+      color: #fff;
+      text-decoration: none;
+    }
+    .made-with-love a:hover {
+      text-decoration: underline;
+    }
+
+    /* for custom scrollbar for webkit browser*/
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+    ::-webkit-scrollbar-thumb {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .fill:hover,
+    .fill:focus {
+      box-shadow: inset 0 0 0 2em var(--hover);
+    }
+
+    .pulse:hover,
+    .pulse:focus {
+      -webkit-animation: pulse 1s;
+      animation: pulse 1s;
+      box-shadow: 0 0 0 2em transparent;
+    }
+
+    @-webkit-keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 var(--hover);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 var(--hover);
+      }
+    }
+    .close:hover,
+    .close:focus {
+      box-shadow: inset -3.5em 0 0 0 var(--hover),
+        inset 3.5em 0 0 0 var(--hover);
+    }
+
+    .raise:hover,
+    .raise:focus {
+      box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+      transform: translateY(-0.25em);
+    }
+
+    .up:hover,
+    .up:focus {
+      box-shadow: inset 0 -3.25em 0 0 var(--hover);
+    }
+
+    .slide:hover,
+    .slide:focus {
+      box-shadow: inset 6.5em 0 0 0 var(--hover);
+    }
+
+    .offset {
+      box-shadow: 0.3em 0.3em 0 0 var(--color),
+        inset 0.3em 0.3em 0 0 var(--color);
+    }
+    .offset:hover,
+    .offset:focus {
+      box-shadow: 0 0 0 0 var(--hover), inset 6em 3.5em 0 0 var(--hover);
+    }
+
+    .fill {
+      --color: #a972cb;
+      --hover: #cb72aa;
+    }
+
+    .pulse {
+      --color: #ef6eae;
+      --hover: #ef8f6e;
+    }
+
+    .close {
+      --color: #ff7f82;
+      --hover: #ffdc7f;
+    }
+
+    .raise {
+      --color: #3a200e;
+      --hover: #e5ff60;
+    }
+
+    .up {
+      --color: #e4cb58;
+      --hover: #94e458;
+    }
+
+    .slide {
+      --color: #8fc866;
+      --hover: #66c887;
+    }
+
+    .offset {
+      --color: #19bc8b;
+      --hover: #1973bc;
+    }
+
+    a {
+      color: var(--color);
+      transition: 0.25s;
+    }
+    a:hover,
+    a:focus {
+      border-color: var(--hover);
+      color: #fff;
+    }
+
+    body {
+      color: #020202;
+      font: 300 1em "Fira Sans", sans-serif;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+      text-align: center;
+      min-height: 100vh;
+    }
+
+    a {
+      background: none;
+      border: 2px solid;
+      font: inherit;
+      line-height: 1;
+      padding: 1em 2em;
+      text-decoration: none;
+    }
+
+    h1 {
+      font-weight: bolder;
+      margin-bottom: 40px;
+    }
+
+    code {
+      color: #e4cb58;
+      font: inherit;
+      }
+  </style>
+  <body>
+        <a href="{% url 'logout' %}" style="text-decoration: none;margin-top: 30px;">Logout</a>
+
+    <section>
+      <h1>USERS</h1>
+      <div class="tbl-header">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <thead>
+            <tr>
+              <th>NAME</th>
+              <th>RESUME</th>
+              <th>STATUS</th>
+              <th>JOBS APPLIED</th>
+              <th>ACTION</th> 
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div class="tbl-content">
+        <table cellpadding="0" cellspacing="0" border="0">
+          <tbody>
+    {% for request in students %}
+
+            <tr>
+              <td>{{ request.profile.username }}</td>
+              
+              <td><a href="{% url 'download_pdf' request.id %}">resume</a></td>
+              <td>{% if not request.is_approved %}
+              Not Approved
+              {% else %}
+             Approved
+              {% endif %}</td>
+              <td> {{ request.applied_jobs }}</td>
+              
+              <td><a href="{% url 'approve_request' request.id %}">Action</a></td>
+
+
+
+     
+             
+            </tr>
+    {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </body>
+</html>

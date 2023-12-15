@@ -1,0 +1,21 @@
+<!-- your_template.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Resume Upload</title>
+</head>
+
+<body>
+
+    <h1>Resume Upload</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload Resume</button>
+    </form>
+
+</body>
+
+</html>

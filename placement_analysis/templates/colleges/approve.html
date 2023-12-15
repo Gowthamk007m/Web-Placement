@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css">
+    <title>Approval Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .input-group-left,
+        .input-group-right {
+            display: flex;
+            align-items: center;
+            margin: 10px;
+        }
+
+        .input-group-left input[type="radio"],
+        .input-group-right input[type="radio"] {
+            display: none;
+        }
+
+        .input-group-left label,
+        .input-group-right label {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        .input-group-left input[type="radio"]:checked+label,
+        .input-group-right input[type="radio"]:checked+label {
+            background-color: #0cf64a;
+            color: #fff;
+        }
+
+        .input-group-right input[type="radio"]:checked+label {
+            background-color: #f22811;
+            color: #fff;
+        }
+
+        button[type="submit"] {
+            background-color: #6f8399;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0069d9;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Approval Form</h1>
+    <form method="POST" >
+        {% csrf_token %}
+        <div class="input-group">
+            <div class="input-group-left">
+                <input type="radio" id="approved" name="is_approved" value="approved">
+                <label for="approved">Approve</label>
+            </div>
+            <div class="input-group-right">
+                <input type="radio" id="denied" name="is_approved" value="denied">
+                <label for="denied">Deny</label>
+            </div>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+<!-- company_jobs.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Company Jobs</title>
+</head>
+
+<body>
+
+    <h1>Company Jobs</h1>
+
+    {% for job in company_jobs %}
+    <p>
+        {{ job.job_title }} - {{ job.status }}
+        <a href="{% url 'change_job_status' job.id %}">Change Status</a>
+        | Applicants: {{ job_counts.job.id|default:0 }}
+    </p>
+    {% endfor %}
+
+    
+</body>
+
+</html>

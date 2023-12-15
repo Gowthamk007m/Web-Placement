@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class AllUsers(models.Model):
     users = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -25,6 +26,7 @@ class UserModel(models.Model):
     profile = models.OneToOneField(User, on_delete=models.CASCADE)
     resume = models.FileField(upload_to='resumes/')
     is_approved = models.BooleanField(default=False)
+    is_denied = models.BooleanField(default=False)
     applied_jobs = models.ForeignKey(Jobs, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
@@ -34,9 +36,27 @@ class UserModel(models.Model):
 class CollegeModel(models.Model):
     college = models.OneToOneField(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.college.username
+
+
+@receiver(post_save, sender=User)
+def create_college_model(sender, instance, created, **kwargs):
+    if created and instance.groups.filter(name='college').exists():
+        CollegeModel.objects.create(college=instance)
+
 
 class CompanyModel(models.Model):
     company = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.company.username
+
+
+@receiver(post_save, sender=User)
+def create_company_model(sender, instance, created, **kwargs):
+    if created and instance.groups.filter(name='company').exists():
+        CollegeModel.objects.create(college=instance)
 
 
 class PlacementRequests(models.Model):
@@ -45,4 +65,19 @@ class PlacementRequests(models.Model):
     description = models.TextField()  
     request_status = models.BooleanField(default=False)
     request_date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.college.college.username} to {self.company.company.username}"
     
+
+class PlacementRequestsFromcompany(models.Model):
+    company = models.ForeignKey(
+        CompanyModel, related_name="company_request", on_delete=models.CASCADE)
+    college = models.ForeignKey(
+        CollegeModel, related_name="college_request", on_delete=models.CASCADE)
+    description = models.TextField()
+    request_status = models.BooleanField(default=False)
+    request_date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.company.company.username} to {self.college.college.username} "

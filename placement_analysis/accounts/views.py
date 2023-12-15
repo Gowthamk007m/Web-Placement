@@ -1,3 +1,11 @@
+from .forms import JobApplicationForm
+from .models import Jobs, UserModel
+from django.shortcuts import render, get_object_or_404, redirect
+from .forms import ResumeUploadForm
+from .models import UserModel
+from django.shortcuts import render, redirect
+from django.shortcuts import render
+from .models import UserModel, Jobs
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
@@ -14,6 +22,80 @@ def main_page(request):
 
 def user_home(request):
     return render(request, 'user/userhome.html')
+
+
+def user_dashboard(request):
+    # Get the current user
+    user_profile = UserModel.objects.get(profile=request.user)
+
+    # Get relevant data for the dashboard
+    applied_jobs = user_profile.applied_jobs.all()
+    # Adjust this based on your business logic
+    placement_drives = Jobs.objects.filter(status='open')
+    part_time_job_openings = Jobs.objects.filter(
+        status='open', company__isnull=False)
+
+    context = {
+        'user_profile': user_profile,
+        'applied_jobs': applied_jobs,
+        'placement_drives': placement_drives,
+        'part_time_job_openings': part_time_job_openings,
+    }
+
+    return render(request, 'user_dashboard.html', context)
+
+
+# views.py
+
+
+def upload_resume(request):
+    user_profile = UserModel.objects.get(profile=request.user)
+
+    if request.method == 'POST':
+        form = ResumeUploadForm(
+            request.POST, request.FILES, instance=user_profile)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Resume uploaded successfully!")
+            # Replace with the URL you want to redirect to
+            return redirect('user_home')
+    else:
+        form = ResumeUploadForm(instance=user_profile)
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'user/upload.html', context)
+
+
+# views.py
+
+
+def apply_for_job(request, job_id):
+    job = get_object_or_404(Jobs, id=job_id)
+
+    if request.method == 'POST':
+        form = JobApplicationForm(request.POST, request.FILES)
+        if form.is_valid():
+            user_profile = UserModel.objects.get(profile=request.user)
+            user_profile.applied_jobs = job
+            user_profile.resume = form.cleaned_data['resume']
+            user_profile.save()
+
+            # Replace with the URL you want to redirect to after job application
+            return redirect('user_dashboard')
+    else:
+        form = JobApplicationForm()
+
+    context = {
+        'form': form,
+        'job': job,
+    }
+
+    return render(request, 'apply_for_job.html', context)
+
 
 
 def register(request):
@@ -71,7 +153,7 @@ def login_view(request):
                 return redirect('user_home')
 
             elif user.groups.filter(name='college').exists():
-                return redirect('colleges_home')
+                return redirect('college_dashboard')
 
             elif user.groups.filter(name='admin').exists():
                 return redirect('admin_home')
