@@ -8,6 +8,8 @@ urlpatterns = [
     path('upload_resume/', upload_resume, name='upload_resume'),
 
     path('apply_for_job/<int:job_id>/', apply_for_job, name='apply_for_job'),
+    path('jobslist', joblist, name='jobslist'),
+
 
     path('login', login_view, name='login'),
     path('register/',register, name='register'),

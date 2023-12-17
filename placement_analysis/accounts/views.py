@@ -1,5 +1,5 @@
 from .forms import JobApplicationForm
-from .models import Jobs, UserModel
+from .models import *
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ResumeUploadForm
 from .models import UserModel
@@ -21,7 +21,8 @@ def main_page(request):
 
 
 def user_home(request):
-    return render(request, 'user/userhome.html')
+    data=Jobs.objects.all()
+    return render(request, 'user/userhome.html',{'data':data})
 
 
 def user_dashboard(request):
@@ -71,6 +72,16 @@ def upload_resume(request):
 
 
 # views.py
+
+
+def joblist(request):
+    job = Jobs.objects.all()
+
+    context = {
+        'job': job,
+    }
+
+    return render(request, 'user/joblist.html', context)
 
 
 def apply_for_job(request, job_id):
@@ -134,6 +145,12 @@ def register(request):
         user.groups.add(group)
 
         user.save()
+
+        if user_type == 'college':
+            CollegeModel.objects.create(college=user)
+        elif user_type == 'company':
+            CompanyModel.objects.create(company=user)
+
 
         messages.success(request, "Account created successfully")
         return redirect('login')

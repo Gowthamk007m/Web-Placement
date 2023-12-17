@@ -40,23 +40,12 @@ class CollegeModel(models.Model):
         return self.college.username
 
 
-@receiver(post_save, sender=User)
-def create_college_model(sender, instance, created, **kwargs):
-    if created and instance.groups.filter(name='college').exists():
-        CollegeModel.objects.create(college=instance)
-
 
 class CompanyModel(models.Model):
     company = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.company.username
-
-
-@receiver(post_save, sender=User)
-def create_company_model(sender, instance, created, **kwargs):
-    if created and instance.groups.filter(name='company').exists():
-        CollegeModel.objects.create(college=instance)
 
 
 class PlacementRequests(models.Model):
